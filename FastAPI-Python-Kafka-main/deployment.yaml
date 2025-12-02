@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-kafka
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-kafka
+  template:
+    metadata:
+      labels:
+        app: fastapi-kafka
+    spec:
+      containers:
+      - name: fastapi-kafka
+        image: <your-dockerhub-username>/fastapi-kafka:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: "hostname1.abc.com:6667,hostname2.abc.com:6667,hostname3.abc.com:6667"
+        - name: KAFKA_USERNAME
+          value: "kafkaapi"
+        - name: KAFKA_PASSWORD
+          value: "kafkapi#123"
+        - name: KAFKA_SSL_CAFILE
+          value: "/app/truststore.pem"
+        volumeMounts:
+        - name: log-volume
+          mountPath: /var/log
+      volumes:
+      - name: log-volume
+        emptyDir: {}

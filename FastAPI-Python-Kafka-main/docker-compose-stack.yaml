@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  flask-kafka-api:
+    image: fastapi-kafka
+    ports:
+      - "9092:5000"  
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4gb
+        reservations:
+          cpus: "1"
+          memory: 1gb
+      update_config:
+        parallelism: 1
+        delay: 30s
+        failure_action: rollback
+        order: start-first
+      rollback_config:
+        parallelism: 1
+        failure_action: pause
+        monitor: 10s
+        max_failure_ratio: 1
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.type == master01
+    networks:
+      - flask-net
+    volumes:
+      - /var/log/fastapi_kafka_api.log:/var/log/fastapi_kafka_api.log
+
+networks:
+  flask-net:
+    driver: overlay

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-kafka-service
+spec:
+  type: LoadBalancer  # Or NodePort for local clusters
+  selector:
+    app: fastapi-kafka
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
