@@ -31,17 +31,17 @@ The architecture follows industry-standard best practices — modular, scalable,
 ## 📁 Project Structure
 
 
-├── airflow_job/
-│ └── airflow_job.py
-├── spark_job/
-│ └── spark_transformation_job.py
-├── variables/
-│ ├── dev/variables.json
-│ └── prod/variables.json
-├── .github/
-│ ├── ci-cd.yml
-├── flight_booking.csv
-└── readme.md
+    ├── airflow_job/
+    │ └── airflow_job.py
+    ├── spark_job/
+    │ └── spark_transformation_job.py
+    ├── variables/
+    │ ├── dev/variables.json
+    │ └── prod/variables.json
+    ├── .github/
+    │ ├── ci-cd.yml
+    ├── flight_booking.csv
+    └── readme.md
 
 
 ---
